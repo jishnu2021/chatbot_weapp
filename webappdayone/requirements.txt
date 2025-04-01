@@ -1,6 +1,17 @@
 # LangChain Core
 langchain
 langchain-core
+Flask
+gunicorn
+flask-cors
+blinker
+click
+Jinja2
+MarkupSafe
+Werkzeug
+packaging
+itsdangerous
+
 
 # OpenAI Integration
 langchain-openai
