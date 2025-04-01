@@ -35,7 +35,7 @@ const Chatbot = () => {
     setMessages([...messages, newUserMessage]);
     setInputValue('');
     setIsLoading(true);
-  const URL = 'http://localhost:5001/';
+  const URL = 'https://chatbotmodel.onrender.com';
     try {
       const response = await fetch(`${URL}/chat`, {
         method: 'POST',
