@@ -8,11 +8,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, resources={r"/chat": {"origins": "https://chatbotclientside.onrender.com"}})
 
 # Initialize AI model
 model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.2, max_output_tokens=100)
-
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
@@ -26,10 +25,17 @@ def chat():
         HumanMessage(content=user_input)
     ]
 
-    response = model.invoke(chat_history)
-    ai_response_content = response.content[:300]  # Limit response length
+    try:
+        response = model.invoke(chat_history)
+        ai_response_content = response.content[:300]  # Limit response length
+        
+        print(f"AI Response: {ai_response_content}")  # Log the response
+        
+        return jsonify({"reply": ai_response_content})
+    except Exception as e:
+        print(f"Error: {str(e)}")  # Log the error
+        return jsonify({"error": str(e)}), 500
 
-    return jsonify({"reply": ai_response_content})
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5001))  # Use the port Render assigns
