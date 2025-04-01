@@ -19,7 +19,7 @@ const AuthForm = ({ type }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const URL = 'http://localhost:5000/';
+    const URL = 'https://chatbot-weapp.onrender.com';
     try {
         const result = await fetch(`${URL}/register`, {
             method: 'POST',
